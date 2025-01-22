@@ -1,23 +1,21 @@
 public class ArithmeticCalculations {
 
-    public double addition(double x, double y){
-        return x + y;
+  public double addition(double x, double y) {
+    return x + y;
+  }
+
+  public double subtraction(double x, double y) {
+    return x - y;
+  }
+
+  public double multiplication(double x, double y) {
+    return x * y;
+  }
+
+  public double division(double x, double y) {
+    if (y == 0) {
+      throw new IllegalArgumentException("Invalid Division by 0");
     }
-
-    public double subraction(double x, double y){
-        return x - y;
-    }
-
-    public double multiplication(double x, double y){
-        return x * y;
-    }
-
-    public double division(double x, double y){
-        if(y == 0){
-            return 0;
-        }
-        return x / y;
-    }
-
-
+    return x / y;
+  }
 }
