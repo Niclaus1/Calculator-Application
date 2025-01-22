@@ -11,20 +11,24 @@ public class UIApplication {
     }
 
     public void start(){
-        System.out.println("Welcome to my Advance Calculator" + "\n" +
-                            "What Calculations do you need? ");
+        System.out.println("What Calculations do you need? " + "\n" +
+                            "Arithmetic(a|A), Trigonometry(t|T) " + "\n" +
+                            "Perimeter(p|P), Close Program(stop)");
         String command = scan.nextLine();
+        String formattedCommand = command.toLowerCase().trim();
 
-        switch(command){
-            case "arithmetic":
+        switch(formattedCommand){
+            case "a":
                 arithmeticFunction();
                 break;
-            case "trigonometry":
+            case "t":
                 trigonometryFunction();
                 break;
-            case "perimeter":
+            case "p":
                 perimeterFunction();
-
+            case "stop":
+                System.out.println("Thank you, Try Again");
+                break;
         }
     }
 
@@ -34,32 +38,34 @@ public class UIApplication {
         String input = scan.nextLine();
         if (input.isEmpty()){
             System.out.println("Sorry try again");
+            return;
         }
         String[] xyNumber = input.split("\\s*[+\\-*/]\\s*");
         String operator = input.replaceAll("[0-9\\s]","");
 
-        if (xyNumber.length == 2) {
-            int num1 = Integer.parseInt(xyNumber[0]);
-            int num2 = Integer.parseInt(xyNumber[1]);
+        if (xyNumber.length == 2 && !operator.isEmpty()) {
+            try{
+                double num1 = Double.parseDouble(xyNumber[0]);
+                double num2 = Double.parseDouble(xyNumber[1]);
 
-            int answer = 0;
-
-            switch (operator) {
-                case "+":
-                    answer = arithmetic.addition(num1, num2);
-                    break;
-                case "-":
-                    answer = arithmetic.subraction(num1, num2);
-                    break;
-                case "*":
-                    answer = arithmetic.multiplication(num1, num2);
-                    break;
-                case "/":
-                    answer = arithmetic.division(num1, num2);
-                    break;
+                double answer = switch (operator) {
+                    case "+" -> arithmetic.addition(num1, num2);
+                    case "-" -> arithmetic.subraction(num1, num2);
+                    case "*" -> arithmetic.multiplication(num1, num2);
+                    case "/" -> arithmetic.division(num1, num2);
+                    default -> throw new IllegalArgumentException("Invalid Operator");
+                 };
+                if (answer == (int)answer){
+                    System.out.println("The answer is: " + (int) answer);
+                }else{
+                    System.out.println("The answer is: " + answer);
                 }
-            System.out.println("The answer is: " + answer);
+                start();
             }
+            catch(IllegalArgumentException e){
+                System.out.println("Invalid input.");
+            }
+        }
             else{
                 System.out.println("Invalid Input");
         }

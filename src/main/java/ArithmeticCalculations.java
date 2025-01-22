@@ -1,18 +1,21 @@
 public class ArithmeticCalculations {
 
-    public int addition(int x, int y){
+    public double addition(double x, double y){
         return x + y;
     }
 
-    public int subraction(int x, int y){
+    public double subraction(double x, double y){
         return x - y;
     }
 
-    public int multiplication(int x, int y){
+    public double multiplication(double x, double y){
         return x * y;
     }
 
-    public int division(int x, int y){
+    public double division(double x, double y){
+        if(y == 0){
+            return 0;
+        }
         return x / y;
     }
 }
